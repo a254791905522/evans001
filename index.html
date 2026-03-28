@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swing Army Rope Run – Official Game Site</title>
+    <meta name="description" content="Swing Army Rope Run is a fast-paced action game. Swing, fly and lead your tiny army through dynamic levels. Now available on the App Store.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, -system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 1px solid #d0d0d0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .brand-name {
+            font-size: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .locale-toggle {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .hero {
+            max-width: 980px;
+            margin: 40px auto 80px;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+            gap: 40px;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .hero-title-en {
+            font-size: 40px;
+            letter-spacing: -0.04em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #333333;
+            max-width: 440px;
+            margin-bottom: 24px;
+        }
+
+        .hero-meta {
+            font-size: 12px;
+            color: #888888;
+            margin-bottom: 24px;
+        }
+
+        .store-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid #111111;
+            text-decoration: none;
+            color: #111111;
+            font-size: 13px;
+            letter-spacing: -0.01em;
+            transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
+        }
+
+        .store-link span:first-child {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #666666;
+        }
+
+        .store-link:hover {
+            background-color: #111111;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .store-link:hover span:first-child {
+            color: #d0d0d0;
+        }
+
+        .screen-card {
+            border-radius: 28px;
+            border: 1px solid #e2e2e2;
+            padding: 24px 22px;
+            background: radial-gradient(circle at top left, #ffffff 0, #f4f4f4 45%, #f0f0f0 100%);
+        }
+
+        .device-frame {
+            border-radius: 26px;
+            border: 1px solid #d8d8d8;
+            background-color: #000000;
+            padding: 18px 10px;
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.26),
+                0 0 1px rgba(0, 0, 0, 0.4);
+        }
+
+        .screen {
+            border-radius: 20px;
+            background: linear-gradient(145deg, #182840, #3e5cec, #ffb347);
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .screen-title {
+            font-size: 20px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .screen-text {
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 260px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .feature-list {
+            max-width: 980px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 32px;
+        }
+
+        .feature {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #444444;
+        }
+
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        footer {
+            border-top: 1px solid #e4e4e4;
+            padding: 18px 24px 26px;
+            font-size: 11px;
+            color: #888888;
+        }
+
+        .footer-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .footer-links a {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 800px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+                margin-top: 24px;
+            }
+
+            .screen {
+                height: 220px;
+            }
+
+            .feature-list {
+                grid-template-columns: minmax(0, 1fr);
+                margin-bottom: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <div class="brand">
+                <div class="brand-mark">SA</div>
+                <div class="brand-name">Swing Army Rope Run</div>
+            </div>
+            <div class="locale-toggle">English</div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div>
+                    <div class="hero-title-en">Swing. Lead. Fly.</div>
+                    <p class="hero-subtitle">
+                        Swing Army Rope Run is a fast‑paced action game about timing, momentum, and control.
+                        Use a single rope to swing, leap, and glide through dynamic levels while keeping your tiny army together.
+                    </p>
+                    <p class="hero-meta">
+                        Available on iPhone & iPad · Designed for touch · Free to start
+                    </p>
+                    <a class="store-link" href="https://apps.apple.com/us/app/swing-army-rope-run/id6756384996?uo=4" target="_blank" rel="noopener noreferrer">
+                        <span>Download on the</span>
+                        <span>App Store</span>
+                    </a>
+                </div>
+                <div class="screen-card" aria-hidden="true">
+                    <div class="device-frame">
+                        <div class="screen">
+                            <div>
+                                <div class="screen-title">Swing Army</div>
+                                <div class="screen-text">
+                                    Time each swing, avoid traps, and gather your troops.
+                                    One rope. Dozens of tiny soldiers. Endless ways to get through.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="feature-list">
+                <div class="feature">
+                    <div class="feature-title">Tactile rope swinging</div>
+                    <p>
+                        Simple one-touch controls with satisfying physics. Every tap, hold, and release changes the path of your entire squad.
+                    </p>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">Dynamic levels</div>
+                    <p>
+                        Levels are filled with moving platforms, traps, and clever obstacles that reward observation and precise timing.
+                    </p>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">Play anywhere</div>
+                    <p>
+                        Designed for short sessions and longer runs alike. Play offline and pick up where you left off, wherever you are.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-inner">
+                <div>© <span id="year"></span> Swing Army Rope Run. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="https://apps.apple.com/us/app/swing-army-rope-run/id6756384996?uo=4" target="_blank" rel="noopener noreferrer">App Store</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
