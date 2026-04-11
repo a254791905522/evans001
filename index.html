@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swing Army Rope Run – Official Game Site</title>
-    <meta name="description" content="Swing Army Rope Run is a fast-paced action game. Swing, fly and lead your tiny army through dynamic levels. Now available on the App Store.">
+    <title>Pack It Perfect — Sort &amp; Match in Space</title>
+    <meta name="description"
+        content="Pack It Perfect: a charming 3D puzzle game. Help a robot sort and organize across the galaxy. Tap, match color-coded boxes, and use power-ups. Free on the App Store.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,58 +17,120 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --space-deep: #0c0e1a;
+            --space-mid: #15182e;
+            --nebula: #2d1f4e;
+            --accent-cyan: #3ee8ff;
+            --accent-magenta: #ff6eb4;
+            --accent-amber: #ffc14d;
+            --text: #e8ecff;
+            --text-soft: #9aa3c4;
+            --card: rgba(22, 26, 48, 0.85);
+            --card-border: rgba(62, 232, 255, 0.22);
+        }
+
         html,
         body {
-            height: 100%;
+            min-height: 100%;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, -system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #ffffff;
-            color: #111111;
+            font-family: "Nunito", system-ui, sans-serif;
+            background: var(--space-deep);
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.35), transparent),
+                radial-gradient(1px 1px at 60% 70%, rgba(255, 255, 255, 0.25), transparent),
+                radial-gradient(1px 1px at 80% 20%, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 40% 80%, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 50% 50%, rgba(62, 232, 255, 0.15), transparent);
+            background-size: 100% 100%;
+            z-index: 0;
+        }
+
+        .glow-orb {
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-orb.a {
+            top: -120px;
+            right: -80px;
+            background: radial-gradient(circle, var(--accent-magenta) 0%, transparent 70%);
+        }
+
+        .glow-orb.b {
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
         }
 
         .page {
+            position: relative;
+            z-index: 1;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         header {
-            padding: 20px 24px;
+            padding: 22px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 980px;
+            max-width: 1040px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .brand-mark {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            border: 1px solid #d0d0d0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, var(--accent-cyan), var(--accent-magenta));
+            display: grid;
+            place-items: center;
+            font-family: "Fredoka", sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--space-deep);
+            box-shadow: 0 8px 24px rgba(62, 232, 255, 0.25);
         }
 
         .brand-name {
-            font-size: 15px;
-            letter-spacing: -0.02em;
+            font-family: "Fredoka", sans-serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            letter-spacing: 0.02em;
         }
 
-        .locale-toggle {
-            font-size: 12px;
-            color: #666666;
+        .badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent-amber);
+            font-weight: 700;
         }
 
         main {
@@ -72,251 +138,362 @@
         }
 
         .hero {
-            max-width: 980px;
-            margin: 40px auto 80px;
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 28px 24px 72px;
             display: grid;
-            grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-            gap: 40px;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 48px;
             align-items: center;
-            padding: 0 24px;
         }
 
-        .hero-title-en {
-            font-size: 40px;
-            letter-spacing: -0.04em;
-            font-weight: 600;
-            margin-bottom: 8px;
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            font-weight: 700;
         }
 
-        .hero-subtitle {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #333333;
-            max-width: 440px;
-            margin-bottom: 24px;
+        h1 {
+            font-family: "Fredoka", sans-serif;
+            font-size: clamp(2.1rem, 4vw, 2.85rem);
+            font-weight: 700;
+            line-height: 1.12;
+            margin-bottom: 16px;
+            background: linear-gradient(120deg, #fff 0%, var(--accent-cyan) 45%, var(--accent-magenta) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .hero-meta {
-            font-size: 12px;
-            color: #888888;
-            margin-bottom: 24px;
+        .lead {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--text-soft);
+            max-width: 32rem;
+            margin-bottom: 22px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 18px;
         }
 
         .store-link {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 18px;
+            padding: 12px 22px;
             border-radius: 999px;
-            border: 1px solid #111111;
+            background: linear-gradient(135deg, var(--accent-magenta), #c94dff);
+            color: #fff;
             text-decoration: none;
-            color: #111111;
-            font-size: 13px;
-            letter-spacing: -0.01em;
-            transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
-        }
-
-        .store-link span:first-child {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #666666;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 12px 32px rgba(255, 110, 180, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
         .store-link:hover {
-            background-color: #111111;
-            color: #ffffff;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(255, 110, 180, 0.45);
         }
 
-        .store-link:hover span:first-child {
-            color: #d0d0d0;
+        .store-link small {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.9;
         }
 
-        .screen-card {
+        .meta-line {
+            font-size: 0.85rem;
+            color: var(--text-soft);
+        }
+
+        .showcase {
+            position: relative;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            inset: -8%;
+            border: 1px dashed rgba(62, 232, 255, 0.2);
+            border-radius: 32px;
+            pointer-events: none;
+        }
+
+        .stage {
             border-radius: 28px;
-            border: 1px solid #e2e2e2;
-            padding: 24px 22px;
-            background: radial-gradient(circle at top left, #ffffff 0, #f4f4f4 45%, #f0f0f0 100%);
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            padding: 28px 22px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
         }
 
-        .device-frame {
-            border-radius: 26px;
-            border: 1px solid #d8d8d8;
-            background-color: #000000;
-            padding: 18px 10px;
-            box-shadow:
-                0 18px 40px rgba(0, 0, 0, 0.26),
-                0 0 1px rgba(0, 0, 0, 0.4);
+        .stage-inner {
+            border-radius: 22px;
+            background: linear-gradient(165deg, var(--nebula) 0%, var(--space-mid) 55%, #0a0c18 100%);
+            min-height: 280px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
-        .screen {
-            border-radius: 20px;
-            background: linear-gradient(145deg, #182840, #3e5cec, #ffb347);
-            height: 260px;
+        .stage-inner::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            right: -40px;
+            top: -40px;
+            background: radial-gradient(circle, rgba(255, 193, 77, 0.2) 0%, transparent 70%);
+        }
+
+        .robot-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .robot-face {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, #6b7cff, #4a5fd4);
+            display: grid;
+            place-items: center;
+            font-size: 26px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .bubble {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 12px 14px;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .boxes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .box {
+            flex: 1;
+            min-width: 72px;
+            height: 64px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
-            text-align: center;
-            padding: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
-        .screen-title {
-            font-size: 20px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            opacity: 0.9;
+        .box.cyan {
+            background: linear-gradient(145deg, #2a8a9e, #3ee8ff);
         }
 
-        .screen-text {
-            font-size: 14px;
-            line-height: 1.6;
-            max-width: 260px;
+        .box.magenta {
+            background: linear-gradient(145deg, #a0387a, #ff6eb4);
+        }
+
+        .box.amber {
+            background: linear-gradient(145deg, #c98a2a, #ffc14d);
+        }
+
+        .features {
+            max-width: 1040px;
             margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        .feature-list {
-            max-width: 980px;
-            margin: 0 auto 80px;
-            padding: 0 24px;
+            padding: 0 24px 80px;
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 32px;
+            gap: 22px;
         }
 
-        .feature {
-            font-size: 13px;
-            line-height: 1.7;
-            color: #444444;
+        .feature-card {
+            border-radius: 20px;
+            padding: 22px 20px;
+            background: rgba(21, 24, 46, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
-        .feature-title {
-            font-size: 14px;
+        .feature-card:hover {
+            border-color: rgba(62, 232, 255, 0.35);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h2 {
+            font-family: "Fredoka", sans-serif;
+            font-size: 1.05rem;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-soft);
         }
 
         footer {
-            border-top: 1px solid #e4e4e4;
-            padding: 18px 24px 26px;
-            font-size: 11px;
-            color: #888888;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px 24px 28px;
+            font-size: 0.75rem;
+            color: var(--text-soft);
         }
 
         .footer-inner {
-            max-width: 980px;
+            max-width: 1040px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 18px;
-        }
-
-        .footer-links a {
-            color: #666666;
+        .footer-inner a {
+            color: var(--accent-cyan);
             text-decoration: none;
         }
 
-        .footer-links a:hover {
+        .footer-inner a:hover {
             text-decoration: underline;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 880px) {
             .hero {
-                grid-template-columns: minmax(0, 1fr);
-                margin-top: 24px;
+                grid-template-columns: 1fr;
+                padding-bottom: 48px;
             }
 
-            .screen {
-                height: 220px;
-            }
-
-            .feature-list {
-                grid-template-columns: minmax(0, 1fr);
-                margin-bottom: 60px;
+            .features {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="stars" aria-hidden="true"></div>
+    <div class="glow-orb a" aria-hidden="true"></div>
+    <div class="glow-orb b" aria-hidden="true"></div>
+
     <div class="page">
         <header>
             <div class="brand">
-                <div class="brand-mark">SA</div>
-                <div class="brand-name">Swing Army Rope Run</div>
+                <div class="brand-icon" aria-hidden="true">PIP</div>
+                <div>
+                    <div class="brand-name">Pack It Perfect</div>
+                    <div class="badge">3D puzzle · Free</div>
+                </div>
             </div>
-            <div class="locale-toggle">English</div>
         </header>
 
         <main>
             <section class="hero">
                 <div>
-                    <div class="hero-title-en">Swing. Lead. Fly.</div>
-                    <p class="hero-subtitle">
-                        Swing Army Rope Run is a fast‑paced action game about timing, momentum, and control.
-                        Use a single rope to swing, leap, and glide through dynamic levels while keeping your tiny army together.
+                    <p class="hero-eyebrow">Galaxy sorting adventure</p>
+                    <h1>Sort, match, and pack it perfect</h1>
+                    <p class="lead">
+                        Step into a charming 3D puzzle experience where you help a hardworking robot tidy up across the galaxy.
+                        Tap to collect items and drop them into color-coded boxes—from sweet donut swirls to floating gears in deep space.
+                        Limited moves and the clock keep every level sharp, while power-ups like Extra Plates and Add Time help you clear the trickiest stages.
                     </p>
-                    <p class="hero-meta">
-                        Available on iPhone & iPad · Designed for touch · Free to start
-                    </p>
-                    <a class="store-link" href="https://apps.apple.com/us/app/swing-army-rope-run/id6756384996?uo=4" target="_blank" rel="noopener noreferrer">
-                        <span>Download on the</span>
-                        <span>App Store</span>
-                    </a>
+                    <div class="cta-row">
+                        <a class="store-link" href="https://apps.apple.com/us/app/pack-it-perfect/id6762000241" target="_blank"
+                            rel="noopener noreferrer">
+                            <span>
+                                <small>Get it on</small><br>
+                                App Store
+                            </span>
+                        </a>
+                    </div>
+                    <p class="meta-line">iPhone &amp; iPad · iOS 15+ · English · Ages 4+</p>
                 </div>
-                <div class="screen-card" aria-hidden="true">
-                    <div class="device-frame">
-                        <div class="screen">
-                            <div>
-                                <div class="screen-title">Swing Army</div>
-                                <div class="screen-text">
-                                    Time each swing, avoid traps, and gather your troops.
-                                    One rope. Dozens of tiny soldiers. Endless ways to get through.
+                <div class="showcase">
+                    <div class="orbit-ring" aria-hidden="true"></div>
+                    <div class="stage">
+                        <div class="stage-inner">
+                            <div class="robot-row">
+                                <div class="robot-face" aria-hidden="true">🤖</div>
+                                <div class="bubble">
+                                    Each level is a new scene: organize fast, use power-ups wisely, and keep the galaxy neat—one perfect pack at a time.
                                 </div>
+                            </div>
+                            <div class="boxes" aria-hidden="true">
+                                <div class="box cyan">▣</div>
+                                <div class="box magenta">▣</div>
+                                <div class="box amber">▣</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="feature-list">
-                <div class="feature">
-                    <div class="feature-title">Tactile rope swinging</div>
+            <section class="features">
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🎯</div>
+                    <h2>Simple, addictive sorting</h2>
                     <p>
-                        Simple one-touch controls with satisfying physics. Every tap, hold, and release changes the path of your entire squad.
+                        Tap to pick up the right objects and place them in matching boxes. Easy to learn, satisfying to master—with vibrant 3D visuals and smooth interactions.
                     </p>
-                </div>
-                <div class="feature">
-                    <div class="feature-title">Dynamic levels</div>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">⏱️</div>
+                    <h2>Levels that push your focus</h2>
                     <p>
-                        Levels are filled with moving platforms, traps, and clever obstacles that reward observation and precise timing.
+                        Progress through unique environments where tighter move limits and countdown pressure reward quick thinking and smart planning.
                     </p>
-                </div>
-                <div class="feature">
-                    <div class="feature-title">Play anywhere</div>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">✨</div>
+                    <h2>Power-ups when you need them</h2>
                     <p>
-                        Designed for short sessions and longer runs alike. Play offline and pick up where you left off, wherever you are.
+                        Turn the tide with Extra Plates and Add Time—handy tools for sticky situations so you can finish levels your way.
                     </p>
-                </div>
+                </article>
             </section>
         </main>
 
         <footer>
             <div class="footer-inner">
-                <div>© <span id="year"></span> Swing Army Rope Run. All rights reserved.</div>
-                <div class="footer-links">
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="https://apps.apple.com/us/app/swing-army-rope-run/id6756384996?uo=4" target="_blank" rel="noopener noreferrer">App Store</a>
+                <div>© <span id="year"></span> Pack It Perfect. All rights reserved.</div>
+                <div>
+                    <a href="privacy.html">Privacy</a>
+                    &nbsp;·&nbsp;
+                    <a href="https://apps.apple.com/us/app/pack-it-perfect/id6762000241" target="_blank"
+                        rel="noopener noreferrer">App Store</a>
                 </div>
             </div>
         </footer>
